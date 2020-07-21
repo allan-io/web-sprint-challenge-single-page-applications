@@ -41,7 +41,7 @@ export default function Form() {
     console.log("form submitted!");
     axios
       .post("https://reqres.in/api/users", formState)
-      .then(() => console.log("form submitted success"))
+      .then((res) => console.log("form submitted success", res.data))
       .catch(err => console.log(err));
   };
 
@@ -89,6 +89,7 @@ export default function Form() {
       <Input
         type="text"
         name="name"
+        data-cy="name"
         onChange={inputChange}
         value={formState.name}
         label="Name"
@@ -97,6 +98,7 @@ export default function Form() {
       <Input
         type="email"
         name="email"
+        data-cy="email"
         onChange={inputChange}
         value={formState.email}
         label="Email"
@@ -105,29 +107,30 @@ export default function Form() {
       
       <label htmlFor="position">
         Choose Size
-        <select name="position" onChange={inputChange}>
-          <option value="Small">Small</option>
-          <option value="Medium">Medium</option>
-          <option value="Large">Large</option>
-          <option value="Extra Large">Extra Large</option>
+        <select data-cy="size" name="position" onChange={inputChange}>
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+          <option value="extra large">Extra Large</option>
         </select>
       </label>
 
       <Input
         type="text"
         name="motivation"
+        data-cy="instructions"
         onChange={inputChange}
         value={formState.motivation}
         label="Special Instructions"
         errors={errors}
       />
-      <label className="terms" htmlFor="terms">
+      <label  className="terms" htmlFor="terms">
         Additional Toppings <br />
-        <input name="terms" type="checkbox" onChange={inputChange} />
+        <input data-cy="bacon" name="terms" type="checkbox" onChange={inputChange} />
         Bacon
       </label>
       <label className="terms" htmlFor="terms">
-        <input name="terms" type="checkbox" onChange={inputChange} />
+        <input data-cy="onions" name="terms" type="checkbox" onChange={inputChange} />
         Onions
       </label>
       <label className="terms" htmlFor="terms">
@@ -138,8 +141,12 @@ export default function Form() {
         <input name="terms" type="checkbox" onChange={inputChange} />
         Ham
       </label>
+      <label className="terms" htmlFor="terms">
+        <input name="terms" type="checkbox" onChange={inputChange} />
+        None
+      </label>
       
-      <button disabled={buttonDisabled}>Order Pizza</button>
+      <button data-cy="button" disabled={buttonDisabled}>Order Pizza</button>
     </form>
   );
 }
